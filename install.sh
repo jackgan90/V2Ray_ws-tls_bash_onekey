@@ -89,7 +89,7 @@ is_root(){
 }
 judge(){
     if [[ $? -eq 0 ]];then
-        echo -e "${OK} ${GreenBG} $1 succeeded. ${Font}"
+        echo -e "${OK} ${GreenBG} $1 succeeded.${Font}"
         sleep 1
     else
         echo -e "${Error} ${RedBG} $1 failed.${Font}"
@@ -103,7 +103,7 @@ ntpdate_install(){
         ${INS} update
         ${INS} install ntpdate -y
     fi
-    judge "Install NTPdate service "
+    judge "Install NTPdate service"
 }
 time_modify(){
 
@@ -210,10 +210,10 @@ ssl_install(){
     else
         ${INS} install socat netcat -y
     fi
-    judge "Install SSL certificate generation script dependency."
+    judge "Install SSL certificate generation script dependency"
 
     curl  https://get.acme.sh | sh
-    judge "Install SSL certificate generation script."
+    judge "Install SSL certificate generation script"
 
 }
 domain_check(){
@@ -221,7 +221,7 @@ domain_check(){
     domain_ip=`ping ${domain} -c 1 | sed '1{s/[^(]*(//;s/).*//;q}'`
     echo -e "${OK} ${GreenBG} Obtaining public IP address of the host,please wait patiently. ${Font}"
     local_ip=`curl -4 ip.sb`
-    echo -e "DNS lookup IP：${domain_ip}"
+    echo -e "DNS lookup IP : ${domain_ip}"
     echo -e "Local IP: ${local_ip}"
     sleep 2
     if [[ $(echo ${local_ip}|tr '.' '+'|bc) -eq $(echo ${domain_ip}|tr '.' '+'|bc) ]];then
