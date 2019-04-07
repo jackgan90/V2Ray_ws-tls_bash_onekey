@@ -164,16 +164,16 @@ modify_nginx(){
     sed -i "27i \\\tproxy_intercept_errors on;"  /etc/nginx/nginx.conf
 }
 web_camouflage(){
-	##Cautions : this path is conflict with the default path of LNMP,don't ever try to use this script in an environment with LNMP installed
+    ##Cautions : this path is conflict with the default path of LNMP,don't ever try to use this script in an environment with LNMP installed
     rm -rf /home/wwwroot && mkdir -p /home/wwwroot && cd /home/wwwroot
-	##This repo can be replaced by any valid nginx website project.Thanks wulabing for sharing the repo.
-	git clone https://github.com/wulabing/sCalc.git
+    ##This repo can be replaced by any valid nginx website project.Thanks wulabing for sharing the repo.
+    git clone https://github.com/wulabing/sCalc.git
     judge "Web camouflage"   
-	##For CentOS7 above we must change the context of /home/wwwroot to httpd_sys_content_t for nginx to access it
-	if [[ "${ID}" == "centos" && ${VERSION_ID} -ge 7 ]];then
-		chcon -Rt httpd_sys_content_t /home/wwwroot
-		judge "Change /home/wwwroot context"
-	fi
+    ##For CentOS7 above we must change the context of /home/wwwroot to httpd_sys_content_t for nginx to access it
+    if [[ "${ID}" == "centos" && ${VERSION_ID} -ge 7 ]];then
+        chcon -Rt httpd_sys_content_t /home/wwwroot
+        judge "Change /home/wwwroot context"
+    fi
 }
 v2ray_install(){
     if [[ -d /root/v2ray ]];then
