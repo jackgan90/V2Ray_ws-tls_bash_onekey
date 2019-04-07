@@ -315,10 +315,11 @@ judge "Modify nginx config"
 }
 
 start_process_systemd(){
+	systemctl enable nginx
     systemctl start nginx 
     judge "Nginx start"
 
-
+	systemctl enable v2ray
     systemctl start v2ray
     judge "V2ray start"
 }
