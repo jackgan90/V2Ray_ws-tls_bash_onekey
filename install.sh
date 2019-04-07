@@ -153,7 +153,6 @@ modify_port_UUID(){
     sed -i "/\"path\"/c \\\t  \"path\":\"\/${camouflage}\/\"" ${v2ray_conf}
 }
 modify_nginx(){
-    ## sed 部分地方 适应新配置修正
     if [[ -f /etc/nginx/nginx.conf.bak ]];then
         cp /etc/nginx/nginx.conf.bak /etc/nginx/nginx.conf
     fi
