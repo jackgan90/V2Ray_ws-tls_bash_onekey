@@ -156,6 +156,9 @@ dependency_install(){
 
     ${INS} install unzip -y
     judge "Install unzip"
+
+	${INS} install tar -y
+	judge "Install tar"
 }
 port_alterid_set(){
     stty erase '^H' && read -p "Input v2ray listening port:(default:443):" port
