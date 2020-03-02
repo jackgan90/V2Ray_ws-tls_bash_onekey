@@ -184,14 +184,17 @@ modify_nginx(){
 }
 web_camouflage(){
     ##Cautions : this path is conflict with the default path of LNMP,don't ever try to use this script in an environment with LNMP installed
-    rm -rf /home/wwwroot && mkdir -p /home/wwwroot && cd /home/wwwroot
+    rm -rf /var/www && mkdir -p /var/www && cd /var/www
     ##This repo can be replaced by any valid nginx website project.Thanks wulabing for sharing the repo.
     git clone https://github.com/wulabing/sCalc.git
     judge "Web camouflage"   
-    ##For CentOS7 above we must change the context of /home/wwwroot to httpd_sys_content_t for nginx to access it
+    ##For CentOS7 above we must change the context of /var/www to httpd_sys_content_t for nginx to access it
     if [[ "${ID}" == "centos" && ${VERSION_ID} -ge 7 ]];then
-        chcon -Rt httpd_sys_content_t /home/wwwroot
-        judge "Change /home/wwwroot context"
+		selinux_status=$(getenforce)
+		if [[ ${selinux_status} != "Disabled" ]];then
+			chcon -Rt httpd_sys_content_t /var/www
+			judge "Change /var/www context"
+		fi
     fi
 }
 v2ray_install(){
@@ -313,7 +316,7 @@ nginx_conf_add(){
         ssl_ciphers           HIGH:!aNULL:!MD5;
         server_name           serveraddr.com;
         index index.html index.htm;
-        root  /home/wwwroot/sCalc;
+        root  /var/www/sCalc;
         error_page 400 = /400.html;
         location /ray/ 
         {
