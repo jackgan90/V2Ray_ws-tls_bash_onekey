@@ -122,6 +122,25 @@ time_modify(){
         echo -e "${Error} ${RedBG} Time synchronization failed, please check if the ntpupdate service is working properly. ${Font}"
     fi 
 }
+
+chrony_install(){
+	${INS} -y install chrony
+	judge "Install chrony"
+
+	timedatectl set-ntp true
+
+	if [[ "${ID}" == "centos" ]];then
+		systemctl enable chronyd && systemctl restart chronyd
+	else
+		systemctl enable chrony && systemctl restart chrony
+	fi
+
+	judge "Start chronyd"
+
+	timedatectl set-timezone Asia/Shanghai
+	timedatectl set-ntp true
+}
+
 dependency_install(){
     ${INS} install wget git lsof -y
 
@@ -359,7 +378,8 @@ show_information(){
 main(){
     is_root
     check_system
-    time_modify
+	#time_modify
+	chrony_install
     dependency_install
     domain_check
     port_alterid_set
