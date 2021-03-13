@@ -22,7 +22,7 @@ Info="${Green}[Info]${Font}"
 OK="${Green}[OK]${Font}"
 Error="${Red}[Error]${Font}"
 
-v2ray_conf_dir="/etc/v2ray"
+v2ray_conf_dir="/usr/local/etc/v2ray"
 nginx_conf_dir="/etc/nginx/conf.d"
 v2ray_conf="${v2ray_conf_dir}/config.json"
 nginx_conf="${nginx_conf_dir}/v2ray.conf"
