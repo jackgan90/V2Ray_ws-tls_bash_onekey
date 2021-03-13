@@ -206,12 +206,10 @@ v2ray_install(){
     fi
 
     mkdir -p /root/v2ray && cd /root/v2ray
-    wget  --no-check-certificate https://install.direct/go.sh
+	curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
 
-    ## wget http://install.direct/go.sh
-    
-    if [[ -f go.sh ]];then
-        bash go.sh --force
+    if [[ -f install-release.sh ]];then
+        bash install-release.sh
         judge "Install V2ray"
     else
         echo -e "${Error} ${RedBG} Failed to download V2ray, please check the download address. ${Font}"
