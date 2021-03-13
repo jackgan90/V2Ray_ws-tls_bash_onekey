@@ -281,7 +281,7 @@ acme(){
     if [[ $? -eq 0 ]];then
         echo -e "${OK} ${GreenBG} SSL certificate generated.${Font}"
         sleep 2
-        ~/.acme.sh/acme.sh --installcert -d ${domain} --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
+        ~/.acme.sh/acme.sh --installcert -d ${domain} --fullchainpath ${v2ray_conf_dir}/v2ray.crt --keypath ${v2ray_conf_dir}/v2ray.key --ecc
         if [[ $? -eq 0 ]];then
         echo -e "${OK} ${GreenBG} SSL certificate installed.${Font}"
         sleep 2
@@ -292,7 +292,7 @@ acme(){
     fi
 }
 v2ray_conf_add(){
-    cd /etc/v2ray
+    cd ${v2ray_conf_dir}
     wget https://raw.githubusercontent.com/jackgan90/V2Ray_ws-tls_bash_onekey/master/tls/config.json -O config.json
 	judge "Download v2ray config.json"
 	modify_port_UUID
@@ -304,8 +304,8 @@ nginx_conf_add(){
     server {
         listen 443 ssl;
         ssl on;
-        ssl_certificate       /etc/v2ray/v2ray.crt;
-        ssl_certificate_key   /etc/v2ray/v2ray.key;
+        ssl_certificate       /usr/local/etc/v2ray/v2ray.crt;
+        ssl_certificate_key   /usr/local/etc/v2ray/v2ray.key;
         ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers           HIGH:!aNULL:!MD5;
         server_name           serveraddr.com;
