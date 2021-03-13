@@ -206,15 +206,8 @@ v2ray_install(){
     fi
 
     mkdir -p /root/v2ray && cd /root/v2ray
-	curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
-
-    if [[ -f install-release.sh ]];then
-        bash install-release.sh
-        judge "Install V2ray"
-    else
-        echo -e "${Error} ${RedBG} Failed to download V2ray, please check the download address. ${Font}"
-        exit 4
-    fi
+	bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+	judge "Install V2ray"
 }
 nginx_install(){
     ${INS} install nginx -y
